@@ -87,7 +87,7 @@ func loadCerts() tls.Config {
 	//}
 }
 
-func publish(config tls.Config) {
+func publish(config *tls.Config) {
 
 	fmt.Println("Publishing")
 
@@ -98,7 +98,7 @@ func publish(config tls.Config) {
 	//	MinVersion: 	tls.VersionTLS12,
 	//}
 
-	nc, err := nats.Connect("nats://nats:4222", nats.Secure(&config))
+	nc, err := nats.Connect("tls://nats:4222", nats.Secure(config))
 	if err != nil {
 		log.Fatalf("Error establishing connection to NATS: %+v\n", err)
 	} else {
@@ -108,8 +108,11 @@ func publish(config tls.Config) {
 	// Simple Publisher
 	for {
 		fmt.Println("Sending message...")
-		nc.Publish("foo", []byte("Hello World"))
-		time.Sleep(1 * time.Second)
+		err = nc.Publish("foo", []byte("Hello World"))
+		if err != nil {
+			fmt.Println(err)
+		}
+		time.Sleep(5 * time.Second)
 	}
 }
 
@@ -118,6 +121,6 @@ func main() {
 	fmt.Println("Hello world!")
 
 	tlsConf := loadCerts()
-	publish(tlsConf)
+	publish(&tlsConf)
 
 }
