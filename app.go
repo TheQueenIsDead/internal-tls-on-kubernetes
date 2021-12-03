@@ -106,12 +106,22 @@ func publish(config *tls.Config) {
 	}
 
 	// Simple Publisher
-	for {
+	for i := 0; ; i++ {
 		fmt.Println("Sending message...")
-		err = nc.Publish("foo", []byte("Hello World"))
+		err = nc.Publish("foo", []byte(fmt.Sprintf("Hello World (%s)", i)))
 		if err != nil {
 			fmt.Println(err)
 		}
+		fmt.Println("Receiving message...")
+		msg, err := nc.Subscribe("foo", func(m *nats.Msg) {
+			fmt.Printf("Received a message: %s\n", string(m.Data))
+		})
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Printf("Message received:\n%s\n", msg)
+		}
+
 		time.Sleep(5 * time.Second)
 	}
 }
