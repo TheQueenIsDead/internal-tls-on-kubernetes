@@ -133,3 +133,7 @@ https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/
 Consider this interesting DNS challenge idea for non cluster.local domains:
 
 https://www.reddit.com/r/selfhosted/comments/q9jf2n/lets_encrypt_certificates_for_my_local_services/
+
+Step CA can be installed and ran for all sorts of means, it is very versatile:
+
+https://smallstep.com/docs/step-ca
