@@ -22,7 +22,7 @@ spec:
       volumes:
         - name: ca
           secret:
-            secretName: demo-ca-crt
-#            items:
-#              - key: "ca.crt"
-#                path: "./"
+            secretName: nats-tls-cert
+            items:
+              - key: "ca.crt"
+                path: "ca.crt"

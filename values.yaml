@@ -1,8 +1,12 @@
 # https://github.com/nats-io/k8s/tree/main/helm/charts/nats#tls-setup-for-client-connections
 nats:
+
+  logging:
+    debug:
+
   tls:
     secret:
-      name: nats-tls
+      name: nats-tls-cert
 #    ca: "ca.crt" # Default to the system store, only needed for clients currently
     cert: "tls.crt"
     key: "tls.key"
