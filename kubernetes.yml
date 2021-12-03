@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: "docker.io/library/client-demo:36"
+          volumeMounts:
+            - name: ca
+              mountPath: "/certs/"
+              readOnly: true
+      volumes:
+        - name: ca
+          secret:
+            secretName: demo-ca-crt
+#            items:
+#              - key: "ca.crt"
+#                path: "./"

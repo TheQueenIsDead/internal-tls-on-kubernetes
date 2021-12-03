@@ -1,0 +1,7 @@
+certs/
+*.sh
+*.yml
+*.md
+*.conf
+Dockerfile
+.build
